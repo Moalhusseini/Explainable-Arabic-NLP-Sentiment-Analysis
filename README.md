@@ -1,4 +1,4 @@
-# Explainable Arabic NLP Sentiment Analysis
+# Explainable Arabic Sentiment Analysis
 
 **Comparing Classical NLP with Arabic Transformer-Based Models**
 
@@ -268,4 +268,64 @@ The experiment produced the following findings:
 1. The original train and test splits contained repeated texts and inconsistent labels, requiring data cleaning and reconstruction of the evaluation partitions.
 2. The final dataset contained 35,601 unique cleaned Arabic texts with a relatively balanced sentiment distribution.
 3. TF-IDF + Logistic Regression provided an interpretable classical baseline but achieved a test F1-score of 0.6383.
-4. MARBERT achieved a test F1-score
+4. MARBERT achieved a test F1-score of 0.9373 and ROC-AUC of 0.9870.
+5. MARBERT produced substantially fewer false positives and false negatives than TF-IDF.
+6. The paired bootstrap analysis supported a positive F1 difference on the reconstructed test sample.
+7. MARBERT also performed better across the evaluated text-length groups, though the long-text group was small.
+
+Overall, the results indicate that contextual Arabic language representations provided a substantial performance advantage over the tested TF-IDF baseline on this dataset and experimental setup.
+
+## Limitations
+
+- The corpus represents Arabic social-media text and may not generalize directly to formal Arabic or other domains.
+- The provider's original train and test splits were reconstructed because of overlap and inconsistent labels.
+- Conflicting text-label records were removed rather than manually adjudicated.
+- MARBERT uses a maximum sequence length of 128 tokens, so some longer texts are truncated.
+- The study uses binary sentiment labels and does not model neutral sentiment or fine-grained emotions.
+- The Transformer was trained with a fixed configuration and a limited number of epochs.
+- The long-text subgroup contained only 19 test observations.
+- Broader generalization would require external evaluation on a separately collected Arabic dataset.
+
+## Repository Structure
+
+```text
+Explainable-Arabic-Sentiment-Analysis/
+│
+├── Explainable_Arabic_Sentiment_Analysis_COMPLETE.ipynb
+└── README.md
+```
+
+The notebook loads the dataset directly from Hugging Face. The dataset file does not need to be uploaded separately to this repository.
+
+## How to Run
+
+1. Clone or download this repository.
+2. Open `Explainable_Arabic_Sentiment_Analysis_COMPLETE.ipynb` in Google Colab.
+3. Select a GPU runtime for faster MARBERT fine-tuning.
+4. Run the cells from top to bottom.
+5. Allow the notebook to download the dataset, preprocess the text, create new partitions, train both models, and produce the evaluation outputs.
+
+The environment setup is included in the notebook.
+
+## References
+
+1. Abdul-Mageed, M., Elmadany, A., & Nagoudi, E. M. B. (2021). **ARBERT & MARBERT: Deep Bidirectional Transformers for Arabic.** Proceedings of ACL-IJCNLP 2021.  
+   https://aclanthology.org/2021.acl-long.551/
+
+2. ASAS AI. **Arabic Sentiment Twitter Corpus.** Hugging Face Datasets.  
+   https://huggingface.co/datasets/asas-ai/Arabic_Sentiment_Twitter_Corpus
+
+3. UBC-NLP. **MARBERT Model Card.** Hugging Face Model Hub.  
+   https://huggingface.co/UBC-NLP/MARBERT
+
+4. Pedregosa, F., et al. (2011). **Scikit-learn: Machine Learning in Python.** *Journal of Machine Learning Research*, 12, 2825–2830.
+
+5. Hugging Face. **Transformers Documentation.**  
+   https://huggingface.co/docs/transformers
+
+6. Hugging Face. **Datasets Documentation.**  
+   https://huggingface.co/docs/datasets
+
+---
+
+**Project Status:** Completed experimental workflow; final results are based on the recorded notebook run.
